@@ -187,7 +187,7 @@ MonoBehaviour:
   - Interlocutor: 0
     InterlocutorName: 
     Text: 
-  dialogSceneScript: {fileID: 4900000, guid: 28b1ce9038a772d45b825bf2f4af5c91, type: 3}
+  dialogSceneScript: {fileID: 4900000, guid: 93a0567b0b8a0004bba16e789699e163, type: 3}
   runSelection: 2
 --- !u!1 &705507993
 GameObject:

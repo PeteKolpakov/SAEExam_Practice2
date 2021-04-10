@@ -52,8 +52,7 @@ public class DialogDisplayer : MonoBehaviour
 
     public void SetName(string name)
     {
-        Sprite sprite = characterImageHandler.GetSpriteFor(name);
-
+        Sprite sprite = string.IsNullOrEmpty(name) ? null : characterImageHandler.GetSpriteFor(name);
 
         switch (interlocutor)
         {
