@@ -73,7 +73,7 @@ The team has decided to outsource the storytelling to a 3rd party writer. As she
 Modify the DialogRunner to allow running a scene from a text file. Make sure to keep the same final behaviour as in the original proof of concept.
 
 You can use the SceneLoader present in the scene and its function “GetRandomScene()” to get the text for a single scene.
-Make sure to get rid of special formatting in the script when visualizing it. (Specifically: no <b> etc)
+Make sure to get rid of special formatting in the script when visualizing it. (Specifically: no bold markers etc)
 The scene should always open up with the scene title. Empty lines in the scene-scripts indicate where the player should press continue to get the new line of text.
 When two characters are in a dialog, one speaker should be on the left and the other on the right. Example: if Joker and Mom are talking, Joker should be on the left and Mom should be on the right.
 
