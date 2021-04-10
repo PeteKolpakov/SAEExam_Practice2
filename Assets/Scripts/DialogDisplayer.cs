@@ -15,14 +15,23 @@ public class DialogDisplayer : MonoBehaviour
 {
     [SerializeField] TMPro.TMP_Text descriptionText, characterText, character1Name, character2Name;
     [SerializeField] Image p1Image, p2Image;
+    [SerializeField] Button continueButton;
 
     private Interlocutor interlocutor = (Interlocutor)(-1);
+
+    public event System.Action ContinueClicked;
 
 
     private void Start()
     {
         SetInterlocutor(Interlocutor.None);
         SetText("");
+        continueButton.onClick.AddListener(OnContinueClicked);
+    }
+
+    private void OnContinueClicked()
+    {
+        ContinueClicked?.Invoke();
     }
 
     public void SetText(string text)
