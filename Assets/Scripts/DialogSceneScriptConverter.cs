@@ -21,6 +21,7 @@ public static class DialogSceneScriptConverter
         LinkedList<DialogSection> sections = new LinkedList<DialogSection>();
 
         RemoveBoldMarkings(ref source);
+        AppendEmptyLine(ref source);
         RemoveLineFeed(ref source);
 
         int currentSourceIndex = 0;
@@ -41,7 +42,8 @@ public static class DialogSceneScriptConverter
         return sections.ToArray();
     }
 
-    // Scripts not ending with an empty newline have the last section cutout
+
+    // Scripts not ending with an empty line have the last section cutout
     private static bool SaveDialogSections(string source, ref int currentSourceIndex, LinkedList<DialogSection> sections)
     {
         int lineStart = currentSourceIndex;
@@ -73,7 +75,7 @@ public static class DialogSceneScriptConverter
                 int spacesCount = CountStartingSpaces(source, lineStart);
 
                 //Handle start of spoken sentence (Name of character)
-                if (spacesCount > 4 && firstLineOfNewSentence)
+                if (spacesCount > 8 && firstLineOfNewSentence)
                 {
                     currentSection.InterlocutorName = CleanupLine(source, lineStart, lineEnd);
 
@@ -102,6 +104,11 @@ public static class DialogSceneScriptConverter
         //save the last processed character back into the referenced index
         currentSourceIndex = lineStart;
         return true;
+    }
+
+    private static void AppendEmptyLine(ref string source)
+    {
+        source += Environment.NewLine + Environment.NewLine;
     }
 
     private static string CleanupLine(string str, int startingIndex, int endIndex)
