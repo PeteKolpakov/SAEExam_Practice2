@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogDisplayer: {fileID: 1867497803}
+  sceneLoader: {fileID: 1516145897}
   manualTestDialog:
   - Interlocutor: 0
     InterlocutorName: 
@@ -186,7 +187,8 @@ MonoBehaviour:
   - Interlocutor: 0
     InterlocutorName: 
     Text: 
-  runManualDialog: 1
+  dialogSceneScript: {fileID: 4900000, guid: 28b1ce9038a772d45b825bf2f4af5c91, type: 3}
+  runSelection: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +420,7 @@ GameObject:
   - component: {fileID: 1516145896}
   - component: {fileID: 1516145897}
   m_Layer: 0
-  m_Name: SceneLoader
+  m_Name: DialogSceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
