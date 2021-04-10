@@ -2,45 +2,44 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DialogRunner : MonoBehaviour
 {
     [SerializeField] DialogDisplayer dialogDisplayer;
 
+    [SerializeField] DialogSection[] manualTestDialog;
+    [SerializeField] bool runManualDialog;
+
+
     private void Start()
     {
-        StartCoroutine(DialogRoutineTest());
+        if (runManualDialog)
+            StartCoroutine(RunDialogFromSecionArray(manualTestDialog));
     }
 
-    private IEnumerator DialogRoutineTest()
+    private IEnumerator RunDialogFromSecionArray(DialogSection[] dialogSections)
     {
         Debug.Log("Running Test");
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("Joker takes a deep breath, pauses to see if it's over.");
 
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetText("Beat.");
+        if(dialogDisplayer == null)
+        {
+            Debug.LogError("No DialogDisplayer assigned.");
+            yield break;
+        }
 
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetInterlocutor(Interlocutor.Character1);
-        dialogDisplayer.SetName("JOKER");
-        dialogDisplayer.SetText("is it just me, or is it getting crazier out there?");
+        for (int i = 0; i < dialogSections.Length; i++)
+        {
+            yield return new WaitForContinueClick(dialogDisplayer);
 
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("Despite the laughter, there's real pain in his eyes. Something broken in him.Looks like he hasn't slept in days.");
+            var current = dialogSections[i];
+            dialogDisplayer.SetInterlocutor(current.Interlocutor);
+            dialogDisplayer.SetName(current.InterlocutorName);
+            dialogDisplayer.SetText(current.Text);
+        }
 
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetInterlocutor(Interlocutor.Character2);
-        dialogDisplayer.SetName("SOCIAL WORKER");
-        dialogDisplayer.SetText("It's certainly tense. People are upset, they're struggling. Looking for work.The garbage strike seems like it's been going on forever.These are tough times.");
-
-        yield return new WaitForContinueClick(dialogDisplayer);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("");
+        Debug.Log("Running Test finished.");
     }
-
 
 }
 public class WaitForContinueClick : CustomYieldInstruction
@@ -60,4 +59,13 @@ public class WaitForContinueClick : CustomYieldInstruction
         waiting = false;
         displayer.ContinueClicked -= OnContinueClicked;
     }
+}
+
+[System.Serializable]
+public class DialogSection
+{
+    public Interlocutor Interlocutor;
+    public string InterlocutorName;
+    [TextArea(5, 50)]
+    public string Text;
 }
