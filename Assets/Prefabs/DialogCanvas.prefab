@@ -452,6 +452,7 @@ MonoBehaviour:
   p1Image: {fileID: 5189964759115705094}
   p2Image: {fileID: 5189964758292191161}
   continueButton: {fileID: 996672187321705727}
+  characterImageHandler: {fileID: 0}
 --- !u!223 &5189964757847594552
 Canvas:
   m_ObjectHideFlags: 0

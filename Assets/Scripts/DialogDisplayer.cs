@@ -16,6 +16,7 @@ public class DialogDisplayer : MonoBehaviour
     [SerializeField] TMPro.TMP_Text descriptionText, characterText, character1Name, character2Name;
     [SerializeField] Image p1Image, p2Image;
     [SerializeField] Button continueButton;
+    [SerializeField] DialogCharacterImageHandler characterImageHandler;
 
     private Interlocutor interlocutor = (Interlocutor)(-1);
 
@@ -51,14 +52,19 @@ public class DialogDisplayer : MonoBehaviour
 
     public void SetName(string name)
     {
+        Sprite sprite = characterImageHandler.GetSpriteFor(name);
+
+
         switch (interlocutor)
         {
             case Interlocutor.Character1:
                 character1Name.text = name;
+                p1Image.sprite = sprite;
                 break;
 
             case Interlocutor.Character2:
                 character2Name.text = name;
+                p2Image.sprite = sprite;
                 break;
         }
     }
