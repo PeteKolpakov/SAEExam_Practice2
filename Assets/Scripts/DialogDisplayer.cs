@@ -1,15 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public enum Interlocutor
-{
-    None,
-    Character1,
-    Character2
-}
 
 public class DialogDisplayer : MonoBehaviour
 {
@@ -17,7 +7,6 @@ public class DialogDisplayer : MonoBehaviour
     [SerializeField] Image p1Image, p2Image;
 
     private Interlocutor interlocutor = (Interlocutor)(-1);
-
 
     private void Start()
     {
@@ -88,6 +77,25 @@ public class DialogDisplayer : MonoBehaviour
                 p2Image.enabled = true;
                 characterText.enabled = true;
                 descriptionText.enabled = false;
+                break;
+        }
+    }
+
+    public void SetImage(Sprite image, Interlocutor i)
+    {
+        switch (i)
+        {
+            case Interlocutor.None:
+                p1Image.sprite = null;
+                p2Image.sprite = null;
+                break;
+            case Interlocutor.Character1:
+                p1Image.sprite = image;
+                p2Image.sprite = null;
+                break;
+            case Interlocutor.Character2:
+                p1Image.sprite = null;
+                p2Image.sprite = image;
                 break;
         }
     }

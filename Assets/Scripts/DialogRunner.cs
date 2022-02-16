@@ -6,39 +6,40 @@ public class DialogRunner : MonoBehaviour
 {
     [SerializeField] DialogDisplayer dialogDisplayer;
 
+    private int _dialogIndex = 0;
+
+    [SerializeField] private Conversation_SO _conversation;
+
+    private void OnEnable()
+    {
+        UIButtonHandler.onContinuePressed += OnContinueButtonPressed;
+    }
+    private void OnDisable()
+    {
+        UIButtonHandler.onContinuePressed -= OnContinueButtonPressed;
+    }
+    public void OnContinueButtonPressed()
+    {
+        // progress text
+        ProgressDialog(_dialogIndex);
+        if (_dialogIndex >= _conversation.elements.Count - 1)
+        {
+            return;
+        }
+        _dialogIndex++;
+    }
+    
     private void Start()
     {
-        StartCoroutine(DialogRoutineTest());
+        //StartCoroutine(DialogRoutineTest());
+        _dialogIndex = 0;
     }
 
-    private IEnumerator DialogRoutineTest()
+    private void ProgressDialog(int index)
     {
-        Debug.Log("Running Test");
-        yield return new WaitForSeconds(1);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("Joker takes a deep breath, pauses to see if it's over.");
-
-        yield return new WaitForSeconds(3);
-        dialogDisplayer.SetText("Beat.");
-
-        yield return new WaitForSeconds(2);
-        dialogDisplayer.SetInterlocutor(Interlocutor.Character1);
-        dialogDisplayer.SetName("JOKER");
-        dialogDisplayer.SetText("is it just me, or is it getting crazier out there?");
-
-        yield return new WaitForSeconds(4);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("Despite the laughter, there's real pain in his eyes. Something broken in him.Looks like he hasn't slept in days.");
-
-        yield return new WaitForSeconds(5);
-
-        dialogDisplayer.SetInterlocutor(Interlocutor.Character2);
-        dialogDisplayer.SetName("SOCIAL WORKER");
-        dialogDisplayer.SetText("It's certainly tense. People are upset, they're struggling. Looking for work.The garbage strike seems like it's been going on forever.These are tough times.");
-
-        yield return new WaitForSeconds(10);
-        dialogDisplayer.SetInterlocutor(Interlocutor.None);
-        dialogDisplayer.SetText("");
+        dialogDisplayer.SetInterlocutor(_conversation.elements[index].interlocutor);
+        dialogDisplayer.SetImage(_conversation.elements[index].image, _conversation.elements[index].interlocutor);
+        dialogDisplayer.SetName(_conversation.elements[index].speakerName);
+        dialogDisplayer.SetText(_conversation.elements[index].dialogText);
     }
-
 }
